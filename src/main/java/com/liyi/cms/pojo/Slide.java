@@ -37,5 +37,4 @@ public class Slide {
 	public String toString() {
 		return "Slide [id=" + id + ", title=" + title + ", picture=" + picture + ", url=" + url + "]";
 	}
-	
 }

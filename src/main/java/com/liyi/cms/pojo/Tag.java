@@ -21,5 +21,4 @@ public class Tag {
 	public String toString() {
 		return "Tag [id=" + id + ", tagname=" + tagname + "]";
 	}
-	
 }

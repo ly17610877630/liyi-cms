@@ -27,7 +27,6 @@ public class VoteContent {
 	}
 	@Override
 	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", content=" + content + "]";
+		return "Vote_content [id=" + id + ", title=" + title + ", content=" + content + "]";
 	}
-	
 }

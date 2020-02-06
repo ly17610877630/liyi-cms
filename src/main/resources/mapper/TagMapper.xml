@@ -5,28 +5,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.liyi.cms.dao.TagDao">
 	<select id="select" resultType="Tag">
 		SELECT * FROM cms_tag
+
 	</select>
-	
-	
+
 	<select id="selectById" resultType="Tag">
 		SELECT * FROM cms_tag WHERE id=#{id}
+
 	</select>
-	
-	
-	<insert id="insert">
-		INSERT INTO cms_tag(tagname)VALUES 
-		(#{tagname})
-	</insert>
-	
-	
+
 	<update id="update">
 		UPDATE cms_tag
- 		SET tagname=#{tagname} 
+		SET tagname=#{tagname}
 		WHERE id=#{id}
+
 	</update>
-	
-	
+
+	<insert id="insert">
+		INSERT INTO cms_tag(tagname)VALUES
+		(#{tagname})
+
+	</insert>
+
 	<delete id="delete">
 		DELETE FROM cms_tag WHERE id in(${ids})
 	</delete>
+
 </mapper>

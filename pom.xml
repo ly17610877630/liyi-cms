@@ -28,12 +28,21 @@
 		<aspectj-version>1.8.0</aspectj-version>
 		<!-- 分页助手 -->
 		<pagehelper-version>5.1.2</pagehelper-version>
-
+		
+		<!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
+        <!-- 编译时的编码 -->  
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 	</properties>
-
 	<!-- jar依赖 -->
 	<dependencies>
-		<!-- 解决冲突的依赖 -->
+		<dependency>
+			<groupId>com.liyi.maven</groupId>
+  			<artifactId>common_utils</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 验证框架 -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -44,100 +53,6 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.8.3</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.8.3</version>
-		</dependency>
-
-		<!-- lucene 和es的包,缺一不可 jar依赖 -->
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-core</artifactId>
-			<version>6.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.janeluo</groupId>
-			<artifactId>ikanalyzer</artifactId>
-			<version>2012_u6</version> <!-- 排除自带的lucene操作 -->
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.lucene</groupId>
-					<artifactId>lucene-queries</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.lucene</groupId>
-					<artifactId>lucene-queryparser</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>5.6.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>transport</artifactId>
-			<version>5.6.8</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-elasticsearch</artifactId>
-			<version>3.0.5.RELEASE</version>
-		</dependency>
-
-		<!-- kafka配置 -->
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-			<version>2.2.0.RELEASE</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.10</artifactId>
-			<version>0.8.2.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jmxri</artifactId>
-					<groupId>com.sun.jmx</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jms</artifactId>
-					<groupId>javax.jms</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jmxtools</artifactId>
-					<groupId>com.sun.jdmk</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.7</version>
-		</dependency>
-		
-		<!-- redis依赖 -->
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>2.9.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-			<version>1.8.7.RELEASE</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-aop</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-
 		<!-- spring 及springMVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -227,8 +142,6 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${log4japi.version}</version>
 		</dependency>
-
-
 		<!-- 单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -325,21 +238,7 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
-		<dependency>
-			<groupId>com.bobo</groupId>
-			<artifactId>bobo-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-  			<groupId>com.liyi.maven</groupId>
-  			<artifactId>common_utils</artifactId>
-  			<version>0.0.1-SNAPSHOT</version>
-  		</dependency>
 	</dependencies>
-
-
-
-
 	<!-- 构建项目 -->
 	<build>
 		<plugins>
@@ -355,7 +254,19 @@
 					<encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
-
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 			<!-- jetty配置 -->
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
@@ -386,13 +297,19 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
+					<update>true</update>
 					<!-- 项目端口号 -->
 					<port>80</port>
 					<!-- 项目的访问路径 -->
 					<path>/</path>
 					<!-- get请求中文乱码 -->
 					<uriEncoding>utf-8</uriEncoding>
-
+					<contextReloadable>true</contextReloadable>
+					<useTestClasspath>true</useTestClasspath>
+					<staticContextPath>/pic/</staticContextPath>
+					<staticContextDocbase>D:/pic/</staticContextDocbase>
+					<!-- <staticContextPath>/img/</staticContextPath>
+					<staticContextDocbase>D:/pic/</staticContextDocbase> -->
 				</configuration>
 			</plugin>
 		</plugins>

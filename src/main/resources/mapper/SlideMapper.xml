@@ -5,28 +5,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.liyi.cms.dao.SlideDao">
 	<select id="select" resultType="Slide">
 		SELECT * FROM cms_slide
+
 	</select>
-	
-	
+
 	<select id="selectById" resultType="Slide">
 		SELECT * FROM cms_slide WHERE id=#{id}
+
 	</select>
-	
-	
-	<insert id="insert">
-		INSERT INTO cms_slide(title,picture,url)VALUES 
-		(#{title},#{picture},#{url})
-	</insert>
-	
-	
+
 	<update id="update">
 		UPDATE cms_slide
- 		SET title=#{title},picture=#{picture},url=#{url} 
+		SET title=#{title},picture=#{picture},url=#{url}
 		WHERE id=#{id}
+
 	</update>
-	
-	
+
+	<insert id="insert">
+		INSERT INTO cms_slide(title,picture,url)VALUES
+		(#{title},#{picture},#{url})
+
+	</insert>
+
 	<delete id="delete">
 		DELETE FROM cms_slide WHERE id in(${ids})
+
 	</delete>
+
 </mapper>
