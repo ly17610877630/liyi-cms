@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Select;
 
 import com.liyi.cms.pojo.User;
 
-public interface UserDao extends BaseDao<User> {
+public interface UserDao extends BaseDao<User>{
 	/**
 	 * @Title: selectByUsername   
 	 * @Description: 根据用户名查找用户   

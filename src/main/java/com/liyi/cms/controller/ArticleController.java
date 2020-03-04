@@ -18,14 +18,98 @@ import com.liyi.cms.common.JsonResult;
 import com.liyi.cms.pojo.Article;
 import com.liyi.cms.pojo.Category;
 import com.liyi.cms.pojo.Channel;
+import com.liyi.cms.pojo.Favorite;
+import com.liyi.cms.pojo.Picture;
 import com.liyi.cms.pojo.User;
 import com.liyi.cms.service.ArticleService;
+import com.liyi.cms.service.FavoriteService;
 
 @Controller
 @RequestMapping("/article/")
 public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private FavoriteService favoriteService;
+	
+	//展示我的收藏夹
+	@RequestMapping("selects")
+	public String selects(Model model,@RequestParam(defaultValue = "1")int pageNum,HttpSession session) {
+		User user = (User) session.getAttribute(CmsConst.UserSessionKey);
+		if(user!=null) {
+			PageInfo info=favoriteService.getFavoriteList(pageNum,8,user);
+			model.addAttribute("pageInfo", info);
+			return "user/favorite";
+		}else {
+			//如果没有登录  去登录
+			return "user/login";
+		}		
+	}
+		
+		
+	//收藏
+	@ResponseBody
+	@RequestMapping("addFavo")
+	public int addFavo(Favorite favo,HttpSession session) {
+		//获得登录的对象
+		User user = (User) session.getAttribute(CmsConst.UserSessionKey);
+		if(user!=null) {
+			favo.setUser(user);
+		}	
+		//执行收藏
+		int i=0;
+		try {
+			i = favoriteService.addFavorite(favo);
+		} catch (Exception e) {
+			i=-1;
+			e.getMessage();//打印异常的信息
+			e.printStackTrace();
+		}		
+		return i;
+	}
+	
+	//展示我的收藏夹
+	@ResponseBody
+	@PostMapping("deleteFavorite")
+	public int deleteFavorite(Integer id) {
+		return favoriteService.deleteFavorite(id);
+	}
+	/**
+	 * 
+	 * @Title: addImg 
+	 * @Description: 发布图片
+	 * @param id
+	 * @param model
+	 * @return
+	 * @return: String
+	 */
+	@GetMapping("/saveImg")
+	public String addImg(Model model) {
+		return "article/addImg";
+	}
+	/**
+	 * @Title: save   
+	 * @Description: 保存图片  
+	 * @param: @param article
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	@PostMapping("/saveImg")
+	public @ResponseBody JsonResult saveImg(Picture picture,HttpSession session) {
+		articleService.saveImg(picture);
+		return JsonResult.sucess();
+	}
+	
+	/**
+	 * @Title: add   
+	 * @Description: 跳转到文章编辑页面
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	
 	
 	/**
 	 * @Title: add   

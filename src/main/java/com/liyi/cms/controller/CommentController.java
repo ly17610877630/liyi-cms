@@ -38,6 +38,5 @@ public class CommentController {
 		commentService.add(comment);
 		return JsonResult.sucess();
 	}
-
 }
 

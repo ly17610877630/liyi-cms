@@ -13,15 +13,20 @@
 	<div class="header">
 		<ul class="nav">
 			<li class="nav-item" style="margin-left: 12px;">
-				<a	class="navbar-brand" href="#"> 
+				<a class="navbar-brand" href="#"> 
+				<c:if test="${userInfo!=null }">
+					<img src="${userInfo.headimg }"	width="30" height="30" alt="">
+				</c:if>
+				<c:if test="${userInfo==null }">
 					<img src="https://v4.bootcss.com/docs/4.3/assets/brand/bootstrap-solid.svg"	width="30" height="30" alt="">
-				</a>
+				</c:if>
+			</a>
 			</li>
 			<li class="nav-item"><a class="nav-link active" href="/">首页</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#">个人中心</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">登录</a></li>
-			<li class="nav-item"><a class="nav-link disabled" href="#"
+			<li class="nav-item"><a class="nav-link" href="/user/center">个人中心</a></li>
+			<c:if test="${userInfo==null}"><li class="nav-item"><a class="nav-link" href="/user/login">登录</a></li></c:if>
+			<li class="nav-item"><a class="nav-link " href="/user/signOut"
 				tabindex="-1" aria-disabled="true">退出</a></li>
 		</ul>
 	</div>
@@ -29,7 +34,7 @@
 		<div class="row offset-1">
 			<div class="col-6">
 				<h1>${article.title }</h1>
-				<h3 style="color: #777;">${article.nickname }    发布时间：<fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd日"/></h3>
+				<h3 style="color: #777;">${article.nickname }    发布时间：<fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd日"/>&nbsp;<button type="button" class="btn btn-info" onclick="add('${article.title }')">收藏</button></h3>
 				<div>
 					<div class="article-content">
 						${article.content }
@@ -123,6 +128,36 @@
 			href = href.substring(0,href.indexOf('?'));
 			console.log(href);
 			location.href=href+'?pageNum='+pageNo;
+		}
+		//收藏
+		function add(text){
+			//判断用户有没有登录
+			//没有登录 去登录页面
+			if(${userInfo==""}){
+				location.href="/user/login";
+				
+			}else{
+				//如果已经登录  进行收藏
+				//ajax做收藏   text(title) url
+				//获得收藏夹地址  ==当前页面的访问地址
+				var url=window.location.href;
+				$.post(
+					"/article/addFavo",
+					{text:text,
+					 url:url	
+					},
+					function(msg){
+						if(msg=="-1"){
+							alert("url不合法")
+						}else if(msg=="0"){
+							alert("收藏失败,请重试");
+						}else{
+							alert("收藏成功");
+						}
+					},
+					"json"
+				);
+			}
 		}
 	</script>
 </body>

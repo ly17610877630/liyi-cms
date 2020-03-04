@@ -155,4 +155,5 @@ public class UserController {
 		userService.set(user);
 		return JsonResult.sucess();
 	}
+	
 }

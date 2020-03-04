@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService{
 	public PageInfo<Comment> getPageInfo(Integer articleId, Integer pageNo, Integer pageSize) {
 		Comment comment = new Comment();
 		comment.setArticleId(articleId);
-		PageHelper.startPage(pageNo, pageSize);
+		PageHelper.startPage(pageNo, 5);
 		List<Comment> commentList = commentDao.select(comment);
 		commentList.forEach(c->{
 			User user = userDao.selectById(c.getUserId());

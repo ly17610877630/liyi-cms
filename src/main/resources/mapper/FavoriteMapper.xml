@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyi.cms.dao.FavoriteDao">
+	<!-- 展示收藏夹 -->
+	<select id="getFavoriteList" resultType="Favorite">
+		select * from cms_favorite where user_id=#{id} order by created desc
+	</select>
+
+	<!-- //执行收藏 -->
+	<insert id="addFavorite">
+		INSERT INTO `cms_favorite` (`text`, `url`, `user_id`, `created`) VALUES (#{text},#{url},#{user.id},now())
+	</insert>
+	<delete id="deleteFavorite">
+		delete from cms_favorite where id = #{id}
+	</delete>
+</mapper>

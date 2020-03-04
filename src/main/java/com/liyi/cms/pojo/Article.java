@@ -1,9 +1,13 @@
 package com.liyi.cms.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Article {
-
+public class Article implements Serializable{
+	/**   
+	 * @Fields serialVersionUID : 新增属性(用一句话描述这个变量表示什么)   
+	 */
+	private static final long serialVersionUID = 1L;
 	/** 所属栏目 **/
 	private String channel_name;
 	/** 所属分类 **/
@@ -12,6 +16,11 @@ public class Article {
 	private String nickname;
 	
 	private String statusStr;
+	/** 图片描述 **/
+	private String descr;
+	/** 图片地址 **/
+	private String url;
+	
 	
 	
 	/**  **/
@@ -161,11 +170,26 @@ public class Article {
 	public void setTousuCnt(Integer tousuCnt) {
 		this.tousuCnt = tousuCnt;
 	}
+	public String getDescr() {
+		return descr;
+	}
+	public void setDescr(String descr) {
+		this.descr = descr;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", picture=" + picture
-				+ ", channel_id=" + channel_id + ", category_id=" + category_id + ", user_id=" + user_id + ", hits="
-				+ hits + ", hot=" + hot + ", status=" + status + ", deleted=" + deleted + ", created=" + created
-				+ ", updated=" + updated + ", commentCnt=" + commentCnt + ", tousuCnt=" + tousuCnt + "]";
+		return "Article [channel_name=" + channel_name + ", category_name=" + category_name + ", nickname=" + nickname
+				+ ", statusStr=" + statusStr + ", descr=" + descr + ", url=" + url + ", id=" + id + ", title=" + title
+				+ ", content=" + content + ", picture=" + picture + ", channel_id=" + channel_id + ", category_id="
+				+ category_id + ", user_id=" + user_id + ", hits=" + hits + ", hot=" + hot + ", status=" + status
+				+ ", deleted=" + deleted + ", created=" + created + ", updated=" + updated + ", commentCnt="
+				+ commentCnt + ", tousuCnt=" + tousuCnt + "]";
 	}
+	
 }

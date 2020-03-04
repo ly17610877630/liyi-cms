@@ -58,4 +58,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</delete>
 
+	<!--//查询24小时内文章  -->
+	<select id="select24Article" resultType="Article">
+		select * from cms_article where created>=#{createTime} and hot =1 ORDER BY hits DESC
+	</select>
+	
+	<!--//查询最热文章  -->
+	<select id="hotArticleList" resultType="Article">
+		select * from cms_article   WHERE hot = 1  ORDER BY hits DESC
+	</select>
+	
+	<insert id="addImg">
+		INSERT INTO `cms_picture` (`picture`) VALUES (#{picture})
+	</insert>
+	
+	<select id="selectImg" resultType="Picture">
+		select * from cms_picture GROUP BY id DESC
+	</select>
 </mapper>

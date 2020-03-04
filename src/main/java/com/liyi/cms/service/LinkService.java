@@ -43,4 +43,3 @@ public interface LinkService {
 	 */
 	List<Link> getLinkListAll();
 }
-

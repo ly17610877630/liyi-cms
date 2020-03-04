@@ -30,4 +30,6 @@ public class Category {
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + ", channel_id=" + channel_id + "]";
 	}
+
+	
 }

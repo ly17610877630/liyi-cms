@@ -39,7 +39,7 @@
 						<div class="carousel-inner">
 							<c:forEach items="${slideList }" var="item" varStatus="status">
 								<div class="carousel-item <c:if test="${status.index==0 }">active</c:if>">
-									<a href="${item.url }" target="_blank"><img src="/pic/${item.picture }" height="386px;" class="d-block w-100" alt="..."></a>
+									<a href="${item.url }" target="_blank"><img src="${item.picture }" height="386px;" class="d-block w-100" alt="..."></a>
 								</div>
 							</c:forEach>
 						</div>
@@ -100,24 +100,37 @@
 				<div class="right">
 					<div>最热文章</div>
 					<ul class="list-unstyled">
-						<li class="media"><img
-							src="http://p1.pstatp.com/large/pgc-image/4ab237b9682f4c0286da5c5e6823dc87"
-							style="height: 72px; width: 72px;" class="mr-3" alt="...">
+						<c:forEach items="${hotArticleList }" var="item">
+						<li class="media">
+							<a href="/article/detail/${item.id }.html"><img src="${item.picture }"	style="height: 72px; width: 72px;" class="mr-3" alt="..."></a>
 							<div class="media-body">
-								<h5 class="mt-0 mb-1">电子眼全面升级，新增5项功能！</h5>
+								<h5 class="mt-0 mb-1"><a href="/article/detail/${item.id }.html">${item.title }</a></h5>
 							</div></li>
-						<li class="media"><img
-							src="http://p1.pstatp.com/large/pgc-image/4ab237b9682f4c0286da5c5e6823dc87"
-							style="height: 72px; width: 72px;" class="mr-3" alt="...">
+						</c:forEach>
+					</ul>
+				</div>
+				<div class="right">
+					<div>24小时热文</div>
+					<ul class="list-unstyled">
+						<c:forEach items="${select24Article }" var="item">
+						<li class="media">
+							<a href="/article/detail/${item.id }.html"><img src="${item.picture }"	style="height: 72px; width: 72px;" class="mr-3" alt="..."></a>
 							<div class="media-body">
-								<h5 class="mt-0 mb-1">电子眼全面升级，新增5项功能！</h5>
+								<h5 class="mt-0 mb-1"><a href="/article/detail/${item.id }.html">${item.title }</a></h5>
 							</div></li>
-						<li class="media"><img
-							src="http://p1.pstatp.com/large/pgc-image/4ab237b9682f4c0286da5c5e6823dc87"
-							style="height: 72px; width: 72px;" class="mr-3" alt="...">
+						</c:forEach>
+					</ul>
+				</div>
+				<div class="right">
+					<div>最新发布图片</div>
+					<ul class="list-unstyled">
+						<c:forEach items="${selectImg.list }" var="item">
+						<li class="media">
+							<a href="${item.picture }"><img src="${item.picture }"	style="height: 72px; width: 72px;" class="mr-3" alt="..."></a>
 							<div class="media-body">
-								<h5 class="mt-0 mb-1">电子眼全面升级，新增5项功能！</h5>
+								<h5 class="mt-0 mb-1"><a href="/article/detail/${item.id }.html">  </a></h5>
 							</div></li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

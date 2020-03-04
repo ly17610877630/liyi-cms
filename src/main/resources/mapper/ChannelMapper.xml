@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<delete id="delete">
 		DELETE FROM cms_channel WHERE id in(${ids})
+
 	</delete>
 
 </mapper>

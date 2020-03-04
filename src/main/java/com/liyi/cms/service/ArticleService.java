@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.liyi.cms.pojo.Article;
 import com.liyi.cms.pojo.Category;
 import com.liyi.cms.pojo.Channel;
+import com.liyi.cms.pojo.Picture;
 
 public interface ArticleService {
 	/**
@@ -159,4 +160,16 @@ public interface ArticleService {
 	 * @throws
 	 */
 	Integer getRandomArticleId();
+	
+	//查询24小时内文章  >=createTime
+	public List<Article> select24Article(String createTime);
+	
+	//查询热点文章(点击次数到20次)
+	List<Article> hotArticleList();
+	
+	//添加图片
+	int saveImg(Picture picture);
+	
+	//查询图片
+	PageInfo<Picture> selectImg(Integer pageNum,Integer pageSize);
 }

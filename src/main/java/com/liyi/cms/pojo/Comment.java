@@ -111,6 +111,4 @@ public class Comment implements Serializable{
 		set.add(comment2);
 		System.out.println(set);
 	}
-	
-	
 }

@@ -15,6 +15,7 @@ import com.liyi.cms.dao.UserDao;
 import com.liyi.cms.pojo.Article;
 import com.liyi.cms.pojo.Category;
 import com.liyi.cms.pojo.Channel;
+import com.liyi.cms.pojo.Picture;
 import com.liyi.cms.pojo.User;
 import com.liyi.maven.common_utils.RandomUtil;
 
@@ -190,5 +191,28 @@ public class ArticleServiceImpl implements ArticleService{
 		List<Integer> articleIdList = articleDao.selectIdList();
 		int random = RandomUtil.random(0, articleIdList.size()-1);
 		return articleIdList.get(random);
+	}
+	
+	//查询24小时内文章  >=createTime
+	@Override
+	public List<Article> select24Article(String createTime) {
+		return articleDao.select24Article(createTime);
+	}
+
+	@Override
+	public List<Article> hotArticleList() {
+		return articleDao.hotArticleList();
+	}
+
+	@Override
+	public int saveImg(Picture picture) {
+		return articleDao.addImg(picture);
+	}
+
+	@Override
+	public PageInfo<Picture> selectImg(Integer pageNum,Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Picture> list = articleDao.selectImg();
+		return new PageInfo<Picture>(list);
 	}
 }

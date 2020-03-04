@@ -34,4 +34,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete">
 		DELETE FROM cms_comment WHERE id in(${ids})
 	</delete>
+
 </mapper>
